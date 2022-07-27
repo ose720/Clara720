@@ -1,0 +1,450 @@
+
+CREATE TABLE SAVEINFO 
+(
+   name   VARCHAR2(10)   NOT NULL,
+   connectinfo VARCHAR2(100)
+   PRIMARY KEY (name)
+);
+
+INSERT INTO SAVEINFO VALUES('js', '20,30,20,20,30,15');
+INSERT INTO SAVEINFO VALUES('js1', '20,30,20,20,30,15');
+INSERT INTO SAVEINFO VALUES('js2', '20,30,20,20,30,15');
+
+SELECT * FROM SAVEINFO;
+
+DROP SAVEINFO;
+
+
+COMMIT;
+--ROLLBACK;
+
+--SELECT * FROM SAVEINFO;
+
+--INSERT : 테이블이 컬럼에 맞춰서 데이터 넣기
+--INSERT INTO /테이블 이름 /VALUES/(컬럼 순서에 따라 데이터 차례대로 넣기)
+
+
+--
+--CREATE TABLE GROUP_PORTFOLIO (
+--   GROUP_NUMBER    NUMBER(2) DEFAULT 0,
+--   NAME          VARCHAR 2(20) NOT NULL,
+--   PORTFOLIO_NAME    VARCHAR 2(30)
+--);
+--
+--CREATE TABLE 고객테이블 (
+--   고객아이디      VARCHAR2(20),
+--   고객이름      VARCHAR2(12)
+--);
+
+DROP TABLE 고객테이블
+
+--CREATE TABLE // 테이블이름 // (
+CREATE TABLE 고객테이블 (
+--컬럼이름 // 데이터타입 // ,
+--NUMBER : 숫자(정수, 소수 ...)
+--NUMBER(3) : 100의 자리수까지 입력가능
+--NUMBER(4,3) : 1000 자리수(정수)까지 입력가능, 소수점 3의 자리수까지 입력가능
+--CHAR : 고정길이 문자열 (컴퓨터 입장에서는 길이가 정해져서 길이 검색 알고리즘 필요없어서 컴퓨터가 편함, 공간 낭비)
+--CHAR(10) : 'abc' > 3자리까지 들어가고 나머지 7자리를 공백으로 채움 
+--VARCHAR : 가변길이 문자열 (1~2000 BYTE)
+--VARCHAR2 : 가변길이 문자열 (1~4000 BYTE)
+--영어는 1BYTE, 한글은 3BYTE
+--DATE : 날짜
+   고객아이디     VARCHAR2(20),
+   고객이름      VARCHAR2(12),
+   나이         NUMBER(3),
+   등급         VARCHAR2(10),
+   직업         VARCHAR2(20),
+   적립금       NUMBER(10),
+   CONSTRAINT 고객테이블_PK PRIMARY KEY (고객아이디)--중복입력 불가능
+--기본키
+--대체키
+--외래키
+);
+
+
+CREATE TABLE 고객테이블 VALUES (
+
+);
+--INSERT INTO //테이블 이름 // VALUES // ('',20,);
+--반드시 컬럼의 생성 순서대로 작성해야 됩니다.!!!
+INSERT INTO 고객테이블 VALUES (
+   'apple', '정소화', 20,'gold','학생',1000
+);
+   INSERT INTO 고객테이블 VALUES (
+   'banana', '김선우', 25, 'vip','간호사',2500
+);
+   INSERT INTO 고객테이블 VALUES (
+   'carrot', '고명성', 28, 'gold', '교사',4500
+);
+   INSERT INTO 고객테이블 VALUES (
+   'orange','김용욱',28,'gold','학생',0
+);
+   INSERT INTO 고객테이블 VALUES (
+   'melon','성원용',35,'gold','회사원',5000
+);
+   INSERT INTO 고객테이블 VALUES (
+   'peach','오형준',NULL,'silver','의사',300
+);
+   INSERT INTO 고객테이블 VALUES (
+   'pear','채광주',31,'silver','회사원',500      
+);
+
+SELECT *FROM 고객테이블;
+
+
+--SELECT // 컬럼이름, .....(* : 모든 컬럼 조회) // FROM //테이블 이름
+--SELECT 고객아이디, 나이 FROM (고객테이블) WHERE 고객아이디 LIKE 
+--where : 검색 범위를 지정해주는 구문
+
+
+--제품테이블
+CREATE TABLE 제품테이블 (
+   제품번호   VARCHAR2(10) PRIMARY KEY,
+   제품명   VARCHAR2(20),
+   재고량   NUMBER(10),
+   단가      NUMBER(10),
+   제조업체   VARCHAR2(20)
+--   CONSTRAINT 제품테이블_PK PRIMARY KEY (제품번호)
+);
+
+SELECT * FROM 제품테이블;
+
+
+INSERT INTO 제품테이블 VALUES (
+   'P01', '만두', 4, 2, '대한식품'
+);
+
+INSERT INTO 제품테이블 VALUES (
+   'p01', '그냥만두', 5, 4, '대한식품'
+);
+
+INSERT INTO 제품테이블 VALUES (
+   'p02','매운쫄면',2500,5500,'민국푸드'
+);
+
+INSERT INTO 제품테이블 VALUES (
+   'p03','쿵떡파이',3600,2600,'한빛제과'
+);
+
+INSERT INTO 제품테이블 VALUES (
+   'p04','맛난초콜릿',1250,2500,'한빛제과'
+);
+
+INSERT INTO 제품테이블 VALUES (
+   'p05','얼큰라면',2200,1200,'대한식품'
+);
+
+INSERT INTO 제품테이블 VALUES (
+   'p06','통통우동',1000,1550,'민국푸드'
+);
+
+INSERT INTO 제품테이블 VALUES (
+   'p07','달콤비스킷',1650,1500,'한빛제과'
+);
+
+--주문테이블
+CREATE TABLE 주문테이블(
+   주문번호   VARCHAR(20),--공백으로 두지 않겠단 내용
+   주문고객   VARCHAR(20),
+   주문제품   VARCHAR(20),
+   수량      NUMBER(3),
+   배송지    VARCHAR(30),
+   주문일자   DATE,
+   CONSTRAINT 주문테이블_PK PRIMARY KEY (주문번호)
+
+);
+
+DROP TABLE 주문테이블;
+
+INSERT INTO 주문테이블 VALUES (
+   'o01','apple','p03',10,'서울시 마포구',to_date(SYSDATE)
+);
+
+INSERT INTO 주문테이블 VALUES (
+   'o02','melon','p01',5,'인천시 계양구',to_date(SYSDATE)
+);
+
+INSERT INTO 주문테이블 VALUES (
+   'o03','banana','p06',45,'경기도 부천시',to_date(SYSDATE)
+);
+
+INSERT INTO 주문테이블 VALUES (
+   'o04','carrot','p02',8,'부산시 금정구',to_date(SYSDATE)
+);
+
+INSERT INTO 주문테이블 VALUES (
+   'o05','melon','p06',36,'경기도 용인시',to_date(SYSDATE)
+);
+
+INSERT INTO 주문테이블 VALUES (
+   'o06','banana','p01',19,'충청북도 보은군', to_date(SYSDATE)
+);
+
+INSERT INTO 주문테이블 VALUES (
+   'o07','apple','p03',22,'서울시 영등포구', to_date(SYSDATE)
+);
+
+INSERT INTO 주문테이블 VALUES (
+   'o08','pear','p02',50,'강원도 춘천시',to_date(SYSDATE)
+);
+
+INSERT INTO 주문테이블 VALUES (
+   'o09','banana','p04',15,'전라남도 목포시',to_date(SYSDATE)
+);
+
+INSERT INTO 주문테이블 VALUES (
+   'o10','carrot','p03',20,'경기도 안양시',to_date(SYSDATE)
+);
+
+--SELECT * FROM 업무내용 WHERE 조원이름 LIKE '이준석'
+
+SELECT * FROM 주문테이블;
+
+DROP TABLE 주문테이블;
+
+
+CREATE TABLE 조별포트폴리오 (
+   그룹           NUMBER(20),
+   조장이름         VARCHAR2(30),
+   포트폴리오제목     VARCHAR2(50),
+   포트폴리오작업내용  VARCHAR2(100),
+   CONSTRAINT  조별포트폴리오 PRIMARY KEY (그룹)
+);
+
+
+INSERT INTO 조별포트폴리오 VALUES (
+   7,'임수빈','미리가는 여행지','코로나 시대 여행가고 싶은 상은이'
+);
+INSERT INTO 조별포트폴리오 VALUES (
+   8,'임유빈','여행가꼬얌','유럽여행 갈꼬야'
+);
+
+SELECT * FROM 조별포트폴리오;
+
+
+DROP TABLE 조별포트폴리오;
+
+CREATE TABLE BLAHBLAH (
+   
+
+   
+);
+
+
+
+SELECT o.주문제품,o.주문일자
+FROM 고객테이블 c
+INNER JOIN 주문테이블 o
+ON c.나이 >= 30;
+
+SELECT * FROM 주문 WHERE 주문고객 = 'banana';
+SELECT * FROM 제품;
+
+SELECT 제품번호, 제품.제품명 AS 제품테이블_제품명, 주문.주문고객 ,
+
+---예제7-38
+--30대 이상인 melon, pear라는 튜픔(고객테이블)과 주문테이블을 대조해서
+--데이터를 join해서 표현
+SELECT 주문.주문제품, 주문.주문일자
+FROM 고객, 주문
+WHERE 고객.나이 >=30; 
+
+SELECT 주문.주문제품, 주문.주문일자
+FROM 고객, 주문
+WHERE 고객.나이 >=30
+AND 고객.고객아이디 = 주문.주문고객;
+
+--1. 조건을 하나씩 분석한다
+--2. 조건에 해당되는 도출결과의 컬럼을 매칭시킨다
+--3. 만일 대칭관계가 1:1 이거나 n:1이 아닐 경우과 1:n일 경우를 구분해서 기억
+SELECT * FROM 고객;
+SELECT * FROM 주문;
+
+
+--교집합 =
+SELECT * FROM 주문 WHERE 주문고객='banana;'
+
+--예제7-44
+SELECT 제품명, 단가, 제조업체
+FROM 제품
+WHERE 단가 >ALL 
+(
+	SELECT 단가
+	FROM 제품
+	WHERE 제조업체 = '대한식품'
+);
+
+	SELECT *
+	FROM 제품
+	WHERE 제조업체 = '대한식품';
+
+--예제 7-45
+SELECT  고객이름
+FROM 고객
+WHERE EXISTS 
+(
+	SELECT *
+	FROM 주문
+	WHERE 주문일자 = '2022-03-15'
+		AND 주문.주문고객 = 고객.고객아이디
+)
+
+SELECT *
+	FROM 주문
+	WHERE 주문일자 ='2022-03-15'
+	 	AND 주문.주문고객 = 고객.고객아이디;
+	 
+SELECT *
+	FROM 주문, 고객 --full OUTER join
+	WHERE 주문일자 ='2022-03-15';
+
+SELECT * FROM 고객;
+
+DROP TABLE basket_a;
+DROP TABLE basket_b;
+	
+DROP TABLE 
+
+--20220726
+CREATE TABLE basket_a (
+	id 		VARCHAR(20) NOT NULL,
+	fruit 	VARCHAR(10) NOT NULL,
+	id_category	VARCHAR(20)
+);
+
+CREATE TABLE basket_b (
+	id 		VARCHAR(20) NOT NULL,
+	fruit 	VARCHAR(10) NOT NULL,
+	id_category	VARCHAR(20)
+);
+
+CREATE TABLE basket_c (
+	id 		VARCHAR(20) NOT NULL,
+	recipe	VARCHAR(10) NOT NULL
+);
+	
+--20220726 INSERT 
+INSERT INTO basket_a VALUES ('1','Apple',null);
+INSERT INTO basket_a VALUES ('2','Orange',null);
+INSERT INTO basket_a VALUES ('3','Banana','1');
+INSERT INTO basket_a VALUES ('4','Cucumber','1');
+
+INSERT INTO basket_b VALUES ('1','Apple',null);
+INSERT INTO basket_b VALUES ('2','Orange',null);
+INSERT INTO basket_b VALUES ('3','Watermelon','1');
+INSERT INTO basket_b VALUES ('4','Pear','1');
+
+INSERT INTO basket_c VALUES ('1','쥬스');
+INSERT INTO basket_c VALUES ('2','생과일');
+
+--inner join(교집합)
+SELECT * FROM basket_a ba --basket_a와 join할 테일블명
+INNER JOIN basket_b bb 
+ON ba.fruit = bb.fruit; 
+--join을 엮을 기준(조건)
+--basket_a 의 fruit컬럼의 데이터와 basket_b의 fruit컬럼의 데이터가 같은 튜플(row)을 찾아라
+
+SELECT * FROM basket_a;
+
+--20220726 inner join
+SELECT * FROM basket_a ba
+INNER JOIN basket_b BB 
+ON ba.fruit = bb.fruit;
+
+--20220726 left outer join (inner join+왼쪽 테이블의 나머지 튜플(row))
+SELECT *FROM basket_b ba
+LEFT OUTER JOIN basket_b BB 
+ON ba.fruit = bb.fruit;
+
+--2022026 full outer join
+--inner join 튜플(row)+ 왼쪽 테이블의 나머지 튜플(row) 더한 후 해
+SELECT * FROM basket_a ba
+FULL OUTER JOIN basket_b BB 
+ON ba.fruit = bb.fruit;
+
+--20220726 self join (자기 자신의 컬럼 중 동일값을 가진 컬럼을 매칭해서 조회)
+SELECT * FROM basket_a ba
+INNER JOIN basket_a bb
+ON ba.id = bb.id_category;
+
+--20220726 cross join (뻥튀기(곱셈)=n*n)
+--a테이블의 각 튜블마다 b테이블 각 튜플을 연결해서 출력
+SELECT * FROM basket_a ba
+CROSS JOIN basket_b bb;
+
+--20220726 natural join (쓰는 이유는 하나의 튜풀애 여러 컬럼 데이터를 첨가(튜플 늘리기)
+SELECT id, fruit, id_category, recipe
+FROM basket_a NATURAL JOIN basket_c;
+
+SELECT * FROM 제품;
+DROP TABLE 제풀;
+
+CREATE TABLE 회원가입 (
+	INDEX_AUTO INT GENERATED ALWAYS AS IDENTITY,
+	회원ID	VARCHAR(30) NOT NULL,
+	회원PW	VARCHAR(30) NOT NULL,
+	삭제YN 	CHAR(1) NOT NULL,
+	기타사항 	VARCHAR(300),
+	생성날짜 	DATE NOT NULL,
+	수정 날짜 	DATE NOT NULL,
+	PRIMARY KEY (회원ID)
+);
+
+--20220727 delete
+SELECT * FROM 주문;
+
+--사용자가 어떠한 행위(명령어)를 하고 최종 결재(확인)을 하는 행위 (DB에 적용하는 행위)
+COMMIT;
+
+--사용자가 어떠한 행위(명령어)를 한 것을 취소하는 행위(최종 COMMIT위치로 돌아간다)
+ROLLBACK;
+
+--where절 조건절을 통해 특정 튜플을(row)을 '찾아서' 삭제를 한다.
+DELETE FROM 주문
+WHERE 주문일자 >= '2022-04-11' AND 주문일자 >= '2022-03-02';
+
+
+DELETE FROM 주문
+WHERE 주문고객 IN (
+	SELECT 고객아이디
+	FROM 고객
+	WHERE 고객이름 = '정소화'
+)
+
+DELETE FROM 주문 
+WHERE 주문고객 IN (
+	'apple' 
+)
+
+
+SELECT * FROM 주문;
+--drop:테이블 자제를 날리는 명령어(테이블은 완전히 삭제)
+--truncate: 테이블을 데이터가 없는 상태의 초기화로 돌리는 명령어(create 시점으로 돌리기)
+--delete: 튜플(row)을 삭제하는 명령어
+
+--drop명령어는 rollback이 되지 않는다
+DROP TABLE 주문;
+
+--20220727 UPDATE
+--테이블의 [특정 튜플]의 [컬럼값을 찾아서 수정]하는 명령어(where조건절로 특정 튜플 잦기)
+--update [테이블 이름] set [컬럼]=[컬럼값] where ...
+
+--제품 테이블의 제품명 컬럼에 있는 모든 데이터는 통큰파이로 바꾼다
+--where 조건을 찾아서 특정 튜플만 수정
+UPDATE 제품 SET 제품명= '통큰파이'
+WHERE 제품번호 = 'p03';
+
+--set 뒤에 컬럼(3) =(2.대입연산자) 컬럼값(1.먼저 연산)
+--컴퓨터는 연산자 기준으로 우측 연산 뒤에 좌측 목표에 데이터 적용
+UPDATE 제품 SET 단가 = 단가 *1.1;
+
+SELECT * FROM 제품;
+
+SAVEPOINT b;
+
+DELETE FROM 제품 WHERE 제품번호= 'p03';
+
+SAVEPOINT c;
+
+ROLLBACK TO a;
