@@ -12,14 +12,19 @@
     <table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0">
 
         <tr>
-            <td bgcolor="orange" th:text="제목" width="80"></th>
+            <td bgcolor="orange" th:text="제목" width="80"></td>
             <!--
                 [서버]에서 java의 데이터를 [클라이언트]html문서에 값을 할당해주는 문법${title}
             -->
-            <th><input name="title" type="text" th:value="${board.title}"></th>
+            <td><input name="title" type="text" th:value="${board.title}"></td>
         </tr>
         <tr>
-            <td bgcolor="orange" th:text="${board.writer}"></td>
+            <td bgcolor="orange" th:text="작성자"></td>
+            <td  th:text="${board.writer}"></td>
+        </tr>
+        <tr>
+            <td bgcolor="orange" th:text="브랜드"></td>
+            <td  th:text="${board.brand}"></td>
         </tr>
         <tr>
             <td bgcolor="orange" th:text="내용"></td>

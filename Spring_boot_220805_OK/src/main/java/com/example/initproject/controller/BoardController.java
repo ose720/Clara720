@@ -35,6 +35,7 @@ public class BoardController {
     public String insertBoard(
             @RequestParam("title") String title,
             @RequestParam("writer") String writer,
+            @RequestParam("brand") String brand,
             @RequestParam("content") String content,
             Model model) {
         Board board = new Board();
@@ -42,6 +43,7 @@ public class BoardController {
         board.setSeq((long) ++count);
         board.setTitle(title);
         board.setWriter(writer);
+        board.setBrand(brand);
         board.setContent(content);
         board.setCreateDate(new Date());
         board.setCnt(0L);
