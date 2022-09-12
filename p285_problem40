@@ -1,0 +1,34 @@
+#include <stdio.h>
+#define MAX 5
+char Stack[MAX];
+int Top =-1;
+
+push(int i) {
+    Top++;
+    if (Top >= MAX)
+        printf("overflow\n");
+    else
+        Stack[Top] = i;
+}
+
+pop()  {
+    if (Top<)
+        printf("underflow\n");
+    else
+        printf("%제거\n", Stack[Top--1]);
+}
+
+main() {
+    push('A');
+    push('B');
+    push('C');
+    push('D');
+    push('F;);
+    pop();
+    pop();
+    pop();
+    push('G');
+    push('H');
+    pop();
+    pop();
+}
